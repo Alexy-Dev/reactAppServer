@@ -8,15 +8,15 @@ export class BooksPage extends Component {
     gotService = new gotService();
 
     state = {
-        selectedBook: null,
+        // selectedBook: null,
         error: false
     }
 
-    onItemSelected = (id) => {
-        this.setState({
-            selectedBook: id
-        })
-    }
+    // onItemSelected = (id) => {
+    //     this.setState({
+    //         selectedBook: id
+    //     })
+    // }
 
     componentDidCatch() {
         this.setState({

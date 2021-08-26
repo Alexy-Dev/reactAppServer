@@ -2,7 +2,7 @@ export default class GotService {
 
     constructor(){
         this._apiBase = 'https://www.anapioficeandfire.com/api';  //способ задать основу url, чтобы не повторять ее при каждом запросе
-    }
+    };
     getResource = async (url) => {   //необходимо отправлять асинхронный запрос
         const res = await fetch(`${this._apiBase}${url}`);       //дождаться отработки этой команды запроса
     
@@ -11,7 +11,7 @@ export default class GotService {
             `, received: ${res.status}`);
         }
         return await res.json();      //дождаться отработки этой команды ответа от сервера    
-    };
+    }
     getAllCharacters = async () => {
         const res = await this.getResource('/characters?page=5&pageSize=10');  //настраиваем получение с 5 страницы 10 персонажей
         return res.map(this._transformCharacter);
@@ -49,7 +49,7 @@ export default class GotService {
     }
 
     _extractId = (item) => {
-        const idRegExp = /\/[0-9]*$/;
+        const idRegExp = /\/([0-9]*)$/;
         return item.url.match(idRegExp)[1];     //присвоение id
     }
     _transformCharacter = (char) => {
