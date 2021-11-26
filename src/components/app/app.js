@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import {Col, Row, Container} from 'reactstrap';
-import Header from '../header';
-import RandomChar from '../randomChar';
+import {Container} from 'reactstrap';
+import Main from '../main/main';
 import ErrorMessage from '../errorMessage';
-import {CharacterPage, BooksPage, HousesPage, BooksItem} from '../pages';
-import gotService from '../../services/gotService';
+// import Spinner from '../spinner';
+import {UsersPage, UsersItem} from '../pages';
+import appService from '../../services/appService';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 
@@ -12,12 +12,12 @@ import './app.css';
 
 export default class App extends Component {
 
-    gotService = new gotService();
+    appService = new appService();
 
     state = {
-        showRandomChar: true,
+        showMain: true,
         error: false,
-        selectedHouse: 20        
+        selectedUser: 20        
     }
 
     componentDidCatch() {
@@ -26,46 +26,27 @@ export default class App extends Component {
             error: true
         })
     }
-    toggleRandomChar = () => {
-        this.setState((state) => {
-            return {
-                showRandomChar: !state.showRandomChar
-            }
-        });       
-    }
     
-
     render() {
-        const char = this.state.showRandomChar ? <RandomChar/> : null;
+        // const user = this.state.showMain ? <UsersPage/> : null;
 
-        if (this.state.error) {
+        if (this.state.showMain.error) {
             return <ErrorMessage/>
         }
         
         return (
             <Router>
               <div className="app">
+               
                 <Container>
-                    <Header />
-                </Container>
-                <Container>
-                    <Row>
-                        <Col lg={{size: 5, offset: 0}}>
-                            {char}
-                            <button 
-                                className="toggle-btn"
-                                onClick={this.toggleRandomChar}>Toggle random character</button>
-                        </Col>
-                    </Row>
-                   
-                    <Route path='/' component={() => <h1>Welcome to GOT DB</h1>} exact/>
-                        <Route path='/characters' component={CharacterPage} />
-                        <Route path='/books' component={BooksPage} exact/>
-                        <Route path='/books/:id' render={
+                    
+                    <Route path='/' component={Main} exact/>
+                        <Route path='/users' component={UsersPage} exact/>
+                        <Route path='/users/:id' render={
                             ({match}) => {
                             const {id} = match.params;
-                        return <BooksItem bookId={id}/>}}/>
-                        <Route path='/houses' component={HousesPage} />
+                        return <UsersItem userId={id}/>}}/>
+                        
                 </Container>
                 </div>
             </Router>

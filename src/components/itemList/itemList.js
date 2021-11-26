@@ -1,16 +1,13 @@
-// import React, {Component} from 'react';
 import React, {useState, useEffect} from 'react';
 import './itemList.css';
 import Spinner from '../spinner';
+import { Table } from 'reactstrap';
 
-// class ItemList extends Component {
+
     function ItemList({getData, onItemSelected, renderItem}){
 
         const [itemList, updateList] = useState([]);
 
-    // state = {
-    //     itemList: null
-    // }
         useEffect(() => {
             getData()
             .then( (data) => {
@@ -18,35 +15,27 @@ import Spinner from '../spinner';
                 })
             }, [])
         
-    // componentDidMount() {
-    //     // const {getData} = this.props;
-
-    //     getData()
-    //         .then( (itemList) => {
-    //             this.setState({
-    //                 itemList
-    //             })
-    //         })
-    // }
-
     function renderItems(arr) {
         return arr.map((item) => {
-            const {id} = item;
+            const {id} = item.id;
 
-            // const label = this.props.renderItem(item);
-            const label = renderItem(item);
+            const label = renderItem(item.id);
+            // console.log(item.name + '/' + item.email);
 
             return (
                 <li 
                     key={id}
-                    className="list-group-item"
-                    // onClick={ () => this.props.onItemSelected(id)}>
-                    onClick={ () => onItemSelected(id)}>
+                    className="row"
+                    onClick={ () => onItemSelected(id)}>                        
                     {label}
-                </li>
+                </li>                
+                
             )
+            
         })
     }
+   
+    // console.log(onItemSelected);
 
     // render() {
         // const {itemList} = this.state;
@@ -57,45 +46,46 @@ import Spinner from '../spinner';
         // const {data} = this.props;
 
         const items = renderItems(itemList);
+        // console.log(items[10]);
 
 
         return (
-            <ul className="item-list list-group">
-                {items}
-            </ul>
+        
+         
+            <Table className="table" striped bordered hover>
+            <thead className="toptable">
+
+                <tr>
+                <th id="Id">id</th>
+                <th id="first_name">First Name</th>
+                <th id="last_name">Last Name</th>
+                <th id="email">Email</th>
+                <th id="gender">Gender</th>
+                <th id="ip_address">Ip Address</th>
+                
+                </tr>
+            </thead>
+            <tbody>
+                
+                        <tr>
+                            <td id="id">
+                            {items}
+                            </td>
+                            {/* <td id="first_name">
+                            {items}
+                            </td>
+                            <td id="last_name">
+                            {items}
+                            </td> */}
+                        </tr>
+            </tbody>
+            </Table>
+
+           
         );
     }
+    // ItemList.defaultProps = {
+    //     onItemSelected: () => {}
+    // }
+    console.log(ItemList);
     export default ItemList;
-// }
-
-// ItemList.defaultProps = {
-//     onItemSelected: () => {}
-// }
-
-// const withData = (View) => {
-//     return class extends Component {
-//         state = {
-//             data: null
-//         }
-//         componentDidMount() {
-//             const {getData} = this.props;
-    
-//             getData()
-//                 .then( (data) => {
-//                     this.setState({
-//                         data
-//                     })
-//                 })
-//         }
-//         render() {
-//             const {data} = this.state;
-
-//         if (!data) {
-//             return <Spinner/>
-//         }
-
-//             return <View {...this.props} data={data} />
-//         }
-//     }
-// }
-// export default withData(ItemList);

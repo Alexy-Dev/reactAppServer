@@ -1,3 +1,33 @@
 .item-list .list-group-item {
     cursor: pointer;
 }
+.table{
+    /* width: 100%; */
+    vertical-align: top;
+    width: 100%;
+    top: 187px;
+    column-count: 8;   
+}
+/* .table .col{
+    vertical-align: top;
+    width: auto;
+    column-count: 8;
+} */
+.toptable{
+
+    /* position: absolute;
+    width: 1180px;
+    height: 48px;
+    left: 130px;
+    top: 187px;
+     */
+    background: #3A80BA;    
+    }
+tbody{
+    position: absolute;
+    width: 1180px;
+    left: 130px;
+    top: 235px;
+    cursor: pointer;
+    border-collapse: collapse;
+}
