@@ -4,10 +4,10 @@ import './itemDetails.css';
 
 const Field = ({item, field, label}) => {
     return (
-        <td>
+        <li className="list-group-item d-flex justify-content-between">
             <span className="term">{label}</span>
             <span>{item[field]}</span>
-        </td>
+        </li>
     )
 }
 
@@ -41,9 +41,7 @@ export default class ItemDetails extends Component {
         getData(itemId)
             .then((item) => {
                 this.setState({item})
-                console.log(item);
             })
-            
     }
 
     render() {
@@ -53,26 +51,17 @@ export default class ItemDetails extends Component {
         }
         const {item} = this.state;
         const {name} = item;
-        
 
         return (
             <div className="char-details rounded">
-                {/* <h4>{name}</h4>
+                <h4>{name}</h4>
                 <ul className="list-group list-group-flush">
                     {
                         React.Children.map(this.props.children, (child) => {
                             return React.cloneElement(child, {item})
                         })
                     }
-                </ul> */}
-                <h4>{name}</h4>
-                <tr className="list-group list-group-flush">
-                    {
-                        React.Children.map(this.props.children, (child) => {
-                            return React.cloneElement(child, {item})
-                        })
-                    }
-                </tr>
+                </ul>
             </div>
         );
     }
